@@ -59,4 +59,4 @@ journal/
 node_modules/
 
 # vim
-*.swap
+*.swp
