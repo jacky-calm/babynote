@@ -1,53 +1,51 @@
 extends layout
 
 block content
-  div.top
-    h1= title
-    p Keep notes for your baby
-
   div.container
-    div.content
-  // Wrapper
-  #wrapper
+    div.masthead
+      h3.muted
+        =title
+      p Keep notes for your baby
 
-    // BABY INFO
-    #userInfo
-      h2 Baby Info
+    div.row
+      div.col-lg-3
+        // BABY INFO
+        p
+          strong Name:
+          |  <span id='userInfoName'></span>
+          br
+          strong Age:
+          |  <span id='userInfoAge'></span>
+          br
+          strong Gender:
+          |  <span id='userInfoGender'></span>
+        // /BABY INFO
+
+      div.col-lg-7
+        // ADD NOTE
+        h4 Add Note
+        fieldset
+          input#notedate(type='text', placeholder='Date')
+          br
+          textarea#inputUserEmail(placeholder='Content')
+          br
+          input#inputUserFullname(type='text', placeholder='Tag')
+          br
+          input#inputUserAge(type='text', placeholder='Upload')
+          br
+          button#btnAddUser Add Note
+        // /ADD NOTE
+
+        // NOTE LIST
+        h4 Note List
+        table
+          thead
+            th UserName
+            th Email
+            th Delete?
+          tbody
+        // /BABY LIST
+
+    div.footer
       p
-        strong Name:
-        |  <span id='userInfoName'></span>
-        br
-        strong Age:
-        |  <span id='userInfoAge'></span>
-        br
-        strong Gender:
-        |  <span id='userInfoGender'></span>
-    // /BABY INFO
-
-    // ADD NOTE
-    h2 Add Note
-    #addUser
-      fieldset
-        input#notedate(type='text', placeholder='Date')
-        br
-        textarea#inputUserEmail(placeholder='Content')
-        br
-        input#inputUserFullname(type='text', placeholder='Tag')
-        br
-        input#inputUserAge(type='text', placeholder='Upload')
-        br
-        button#btnAddUser Add Note
-    // /ADD NOTE
-
-    // NOTE LIST
-    h2 Note List
-    #userList
-      table
-        thead
-          th UserName
-          th Email
-          th Delete?
-        tbody
-    // /BABY LIST
-
-  // /WRAPPER
+        &copy; Babynote 2013
