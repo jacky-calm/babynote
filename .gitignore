@@ -52,3 +52,8 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# mongodb
+journal/
+
+# node 
+node_modules/
