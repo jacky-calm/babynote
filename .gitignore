@@ -57,3 +57,6 @@ journal/
 
 # node 
 node_modules/
+
+# vim
+*.swap

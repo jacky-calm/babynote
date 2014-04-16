@@ -6,10 +6,10 @@ $(document).ready(function() {
 
   // Populate the user table on initial page load
   populateTable();
+  showBabyInfo();
 
-  // Username link click
-  $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-
+  $("#notedate").datepicker();
+  $("#notedate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
   // Add User button click
   $('#btnAddUser').on('click', addUser);
 
@@ -47,25 +47,11 @@ function populateTable() {
 };
 
 // Show User Info
-function showUserInfo(event) {
-
-  // Prevent Link from Firing
-  event.preventDefault();
-
-  // Retrieve username from link rel attribute
-  var thisUserName = $(this).attr('rel');
-
-  // Get Index of object based on id value
-  var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.username; }).indexOf(thisUserName);
-
-  // Get our User Object
-  var thisUserObject = userListData[arrayPosition];
-
+function showBabyInfo() {
   //Populate Info Box
-  $('#userInfoName').text(thisUserObject.fullname);
-  $('#userInfoAge').text(thisUserObject.age);
-  $('#userInfoGender').text(thisUserObject.gender);
-  $('#userInfoLocation').text(thisUserObject.location);
+  $('#userInfoName').text("Lele");
+  $('#userInfoAge').text("07/29/2012");
+  $('#userInfoGender').text("Female");
 };
 
 // Add User

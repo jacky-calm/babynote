@@ -2,14 +2,14 @@ extends layout
 
 block content
   h1= title
-  p Welcome to our test
+  p Keep notes for your baby
 
   // Wrapper
   #wrapper
 
-    // USER INFO
+    // BABY INFO
     #userInfo
-      h2 User Info
+      h2 Baby Info
       p
         strong Name:
         |  <span id='userInfoName'></span>
@@ -19,13 +19,25 @@ block content
         br
         strong Gender:
         |  <span id='userInfoGender'></span>
-        br
-        strong Location:
-        |  <span id='userInfoLocation'></span>
-    // /USER INFO
+    // /BABY INFO
 
-    // USER LIST
-    h2 User List
+    // ADD NOTE
+    h2 Add Note
+    #addUser
+      fieldset
+        input#notedate(type='text', placeholder='Date')
+        br
+        textarea#inputUserEmail(placeholder='Content')
+        br
+        input#inputUserFullname(type='text', placeholder='Tag')
+        br
+        input#inputUserAge(type='text', placeholder='Upload')
+        br
+        button#btnAddUser Add Note
+    // /ADD NOTE
+
+    // NOTE LIST
+    h2 Note List
     #userList
       table
         thead
@@ -33,22 +45,6 @@ block content
           th Email
           th Delete?
         tbody
-    // /USER LIST
-
-    // ADD USER
-    h2 Add User
-    #addUser
-      fieldset
-        input#inputUserName(type='text', placeholder='Username')
-        input#inputUserEmail(type='text', placeholder='Email')
-        br
-        input#inputUserFullname(type='text', placeholder='Full Name')
-        input#inputUserAge(type='text', placeholder='Age')
-        br
-        input#inputUserLocation(type='text', placeholder='Location')
-        input#inputUserGender(type='text', placeholder='gender')
-        br
-        button#btnAddUser Add User
-    // /ADD USER
+    // /BABY LIST
 
   // /WRAPPER
