@@ -28,8 +28,13 @@ function populateTable() {
   $.getJSON( '/notelist', function( data ) {
     // For each item in our JSON, add a table row and cells to the content string
     $.each(data, function(){
-      listContent += '<li>' + this.noteContent + '(posted at '+this.noteDate + ') ';
-      listContent += '<a href="#" class="linkdeletenote" rel="' + this._id + '">delete</a>';
+      listContent += '<li class="stream-item">' ;
+      listContent += '<div class="context">&nbsp;&nbsp;</div>';
+      listContent += '<div class="content">';
+      listContent += '<p>';
+      listContent += this.noteContent + '(posted at '+this.noteDate + ') ';
+      listContent += '</p>';
+      listContent += '</div>';
       listContent += '</li>';
     });
 

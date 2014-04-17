@@ -1,4 +1,51 @@
 body {
-  padding-top: 20px;
-  padding-bottom: 40px;
+  background-attachment: fixed;
+  background-color: #C0DEED;
+  background-image: url(/images/bg.jpg);
+  background-position: left 40px;
+  background-repeat: no-repeat;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #292F33;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.content-header {
+  border-bottom-width: 0;
+}
+.content-header .header-inner, .content-no-header .no-header-inner {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E8E8E8;
+    border-radius: 5px 5px 0 0;
+    min-height: 20px;
+    padding: 12px;
+}
+
+.stream, .stream-items {
+    list-style: none outside none;
+    margin-left: 0;
+    position: relative;
+}
+.stream-container {
+    background: none repeat scroll 0 0 #F6F6F6;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+.stream-item {
+    background: none repeat scroll 0 0 padding-box #FFFFFF;
+    border-left: 1px solid #E1E8ED;
+    border-right: 1px solid #E1E8ED;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+ol {
+    list-style: decimal outside none;
+}
+
+li {
+    /*list-style-type: none;*/
+    padding: 9px 12px;
 }
