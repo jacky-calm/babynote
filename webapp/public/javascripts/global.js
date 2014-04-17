@@ -8,13 +8,12 @@ $(document).ready(function() {
   populateTable();
   showBabyInfo();
 
-  $("#notedate").datepicker();
-  $("#notedate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
-  // Add User button click
-  $('#btnAddUser').on('click', addUser);
+  $("#noteDate").datepicker();
+  $("#noteDate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
+  $('#btnAddNote').on('click', addNote);
 
-  // Delete User link click
-  $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+  // Delete Note link click
+  $('#notelist').on('click', 'a.linkdeletenote', deleteNote);
 
 });
 
@@ -22,27 +21,20 @@ $(document).ready(function() {
 
 // Fill table with data
 function populateTable() {
-
   // Empty content string
-  var tableContent = '';
+  var listContent = '';
 
   // jQuery AJAX call for JSON
-  $.getJSON( '/userlist', function( data ) {
-
-    // Stick our user data array into a userlist variable in the global object
-    userListData = data;
-
+  $.getJSON( '/notelist', function( data ) {
     // For each item in our JSON, add a table row and cells to the content string
     $.each(data, function(){
-      tableContent += '<tr>';
-      tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
-      tableContent += '<td>' + this.email + '</td>';
-      tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-      tableContent += '</tr>';
+      listContent += '<li>' + this.noteContent + '(posted at '+this.noteDate + ') ';
+      listContent += '<a href="#" class="linkdeletenote" rel="' + this._id + '">delete</a>';
+      listContent += '</li>';
     });
 
     // Inject the whole content string into our existing HTML table
-    $('#userList table tbody').html(tableContent);
+    $('#notelist').html(listContent);
   });
 };
 
@@ -55,12 +47,12 @@ function showBabyInfo() {
 };
 
 // Add User
-function addUser(event) {
+function addNote(event) {
   event.preventDefault();
 
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
-  $('#addUser input').each(function(index, val) {
+  $('#addNote input').each(function(index, val) {
     if($(this).val() === '') { errorCount++; }
   });
 
@@ -68,20 +60,18 @@ function addUser(event) {
   if(errorCount === 0) {
 
     // If it is, compile all user info into one object
-    var newUser = {
-      'username': $('#addUser fieldset input#inputUserName').val(),
-      'email': $('#addUser fieldset input#inputUserEmail').val(),
-      'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-      'age': $('#addUser fieldset input#inputUserAge').val(),
-      'location': $('#addUser fieldset input#inputUserLocation').val(),
-      'gender': $('#addUser fieldset input#inputUserGender').val()
+    var newNote = {
+      'noteContent': $('#noteContent').val(),
+      'noteDate': $('#noteDate').val(),
+      'noteTag': $('#noteTag').val(),
+      'notePhoto': $('#notePhoto').val(),
     }
 
     // Use AJAX to post the object to our adduser service
     $.ajax({
       type: 'POST',
-      data: newUser,
-      url: '/adduser',
+      data: newNote,
+      url: '/addnote',
       dataType: 'JSON'
     }).done(function( response ) {
 
@@ -89,7 +79,7 @@ function addUser(event) {
       if (response.msg === '') {
 
         // Clear the form inputs
-        $('#addUser fieldset input').val('');
+        //$('#addUser fieldset input').val('');
 
         // Update the table
         populateTable();
@@ -111,12 +101,12 @@ function addUser(event) {
 };
 
 // Delete User
-function deleteUser(event) {
+function deleteNote(event) {
 
   event.preventDefault();
 
   // Pop up a confirmation dialog
-  var confirmation = confirm('Are you sure you want to delete this user?');
+  var confirmation = confirm('Are you sure you want to delete this note?');
 
   // Check and make sure the user confirmed
   if (confirmation === true) {
@@ -124,7 +114,7 @@ function deleteUser(event) {
     // If they did, do our delete
     $.ajax({
       type: 'DELETE',
-      url: '/deleteuser/' + $(this).attr('rel')
+      url: '/deletenote/' + $(this).attr('rel')
     }).done(function( response ) {
 
       // Check for a successful (blank) response

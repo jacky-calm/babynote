@@ -8,7 +8,7 @@ block content
       p Keep notes for your baby
 
     div.row
-      div.col-lg-3
+      div.col-lg-2.offset-lg-2
         // BABY INFO
         p
           strong Name:
@@ -21,30 +21,25 @@ block content
           |  <span id='userInfoGender'></span>
         // /BABY INFO
 
-      div.col-lg-7
         // ADD NOTE
         h4 Add Note
         fieldset
-          input#notedate(type='text', placeholder='Date')
+          textarea#noteContent(placeholder='Content')
           br
-          textarea#inputUserEmail(placeholder='Content')
+          input#noteDate(type='text', placeholder='Date')
           br
-          input#inputUserFullname(type='text', placeholder='Tag')
+          input#noteTag(type='text', placeholder='Tag')
           br
-          input#inputUserAge(type='text', placeholder='Upload')
+          input#notePhoto(type='text', placeholder='Upload')
           br
-          button#btnAddUser Add Note
+          button#btnAddNote Add Note
         // /ADD NOTE
 
+      div.col-lg-6
         // NOTE LIST
         h4 Note List
-        table
-          thead
-            th UserName
-            th Email
-            th Delete?
-          tbody
-        // /BABY LIST
+        ul#notelist
+        // /NOTE LIST
 
     div.footer
       p
