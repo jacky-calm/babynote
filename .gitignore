@@ -54,6 +54,7 @@ docs/_build/
 
 # mongodb
 journal/
+mongod.lock
 
 # node
 node_modules/
