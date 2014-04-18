@@ -36,16 +36,138 @@ body {
 }
 .stream-item {
     background: none repeat scroll 0 0 padding-box #FFFFFF;
-    border-left: 1px solid #E1E8ED;
-    border-right: 1px solid #E1E8ED;
+    /*border-left: 1px solid #E1E8ED;*/
+    /*border-right: 1px solid #E1E8ED;*/
     border-bottom: 1px solid #E1E8ED;
 }
+.stream-footer {
+    background-color: #FFFFFF;
+    border-radius: 0 0 5px 5px;
+    padding: 15px 50px;
+    margin-bottom: 14px;
+}
 
-ol {
+ol ul {
     list-style: decimal outside none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
 }
 
 li {
-    /*list-style-type: none;*/
+    list-style: none;
     padding: 9px 12px;
 }
+
+.DashboardProfileCard {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E1E8ED;
+    border-radius: 6px 6px 6px 6px;
+}
+.DashboardProfileCard-userFields {
+    left: 90px;
+    position: absolute;
+    top: 103px;
+    width: 185px;
+}
+
+.DashboardProfileCard-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+}
+.u-textTruncate {
+    max-width: 100%;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    word-wrap: normal !important;
+}
+.u-textInheritColor {
+    color: inherit !important;
+}
+.u-bgUserColor, .u-bgUserColorHover:hover, .u-bgUserColorHover:focus {
+    background-color: #0084B4 !important;
+}
+.DashboardProfileCard-bg {
+    background-size: 100% auto;
+    border-bottom: 1px solid #E1E8ED;
+    border-radius: 4px 4px 0 0;
+    height: 95px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 0 1px;
+    width: 100%;
+}
+.u-block {
+    display: block !important;
+}
+
+.DashboardProfileCard-avatarLink {
+    background-color: #FFFFFF;
+    border-radius: 6px 6px 6px 6px;
+    margin: -30px 0 0 8px;
+    padding: 3px;
+    vertical-align: bottom;
+}
+.u-dir {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: embed;
+}
+.u-inlineBlock {
+    display: inline-block !important;
+}
+.DashboardProfileCard-screennameLink {
+    color: #66757F;
+    font-size: 12px;
+    padding-right: 5px;
+}
+.u-linkComplex, .u-linkComplex:hover, .u-linkComplex:focus, .u-linkComplex:active {
+    text-decoration: none !important;
+}
+.u-linkClean, .u-linkClean:hover, .u-linkClean:focus, .u-linkClean:active {
+    text-decoration: none !important;
+}
+.DashboardProfileCard-stats {
+    padding: 10px 0;
+}
+.Grid {
+    display: block;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.DashboardProfileCard .DashboardProfileCard-stat {
+    vertical-align: bottom;
+}
+.Grid-cell {
+    -moz-box-sizing: border-box;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    vertical-align: top;
+    width: 100%;
+}
+.DashboardProfileCard-stat {
+    -moz-box-sizing: border-box;
+    border-bottom: 0 solid #66757F;
+    line-height: 1;
+    overflow: hidden;
+    transition: all 0.15s ease-in-out 0s;
+}
+.u-size1of3, .u-size2of6, .u-size4of12 {
+    width: 33.333% !important;
+}
+.u-textInheritColor {
+    color: inherit !important;
+}
+a {
+    background: none repeat scroll 0 0 transparent;
+}
+
+

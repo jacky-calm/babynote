@@ -8,23 +8,31 @@ block content
       p Keep notes for your baby
 
     div.row
-      div.col-lg-2.offset-lg-2
-        // BABY INFO
-        p
-          strong Name:
-          |  <span id='userInfoName'></span>
-          br
-          strong Age:
-          |  <span id='userInfoAge'></span>
-          br
-          strong Gender:
-          |  <span id='userInfoGender'></span>
-        // /BABY INFO
+      div.col-lg-3.offset-lg-2
+        div.DashboardProfileCard
+          a.DashboardProfileCard-bg.u-bgUserColor.u-block
+          div.DashboardProfileCard-content
+            a.DashboardProfileCard-avatarLink.u-inlineBlock
+              img(src="https://pbs.twimg.com/profile_images/456669699233697793/eo1ojc48_bigger.jpeg")
+            div.DashboardProfileCard-userFields
+              div.DashboardProfileCard-name.u-textTruncate
+                a#userInfoName.u-textInheritColor
+              span.DashboardProfileCard-screenname.u-inlineBlock.u-dir
+                a.DashboardProfileCard-screennameLink.u-linkComplex.u-linkClean
+                  Girl, 20 months
+            div.DashboardProfileCard-stats
+               ul.DashboardProfileCard-statList.Grid
+                 li.DashboardProfileCard-stat.Grid-cell.u-size1of3
+                   a.DashboardProfileCard-statLink.u-textCenter.u-textUserColor.u-linkClean.u-block
+                     span.DashboardProfileCard-statLabel.u-block
+                       Notes
+                     span.DashboardProfileCard-statValue
+                       5
 
         // ADD NOTE
         h4 Add Note
         fieldset
-          textarea#noteContent(placeholder='Content')
+          input#noteContent(placeholder='Content')
           br
           input#noteDate(type='text', placeholder='Date')
           br
@@ -35,7 +43,7 @@ block content
           button#btnAddNote Add Note
         // /ADD NOTE
 
-      div.col-lg-6
+      div.col-lg-7
         // NOTE LIST
         div.content-header
           div.header-inner
@@ -43,6 +51,8 @@ block content
         div.stream-container
           ol#notelist
         // /NOTE LIST
+        div.stream-footer
+
 
     div.footer
       p
