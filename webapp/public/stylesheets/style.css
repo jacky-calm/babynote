@@ -195,3 +195,29 @@ a {
 .u-block {
     display: block !important;
 }
+
+
+.module .tweet-box {
+    line-height: 1;
+}
+.home-tweet-box, .dm-tweetbox, .WebToast-box--altColor, .content-main .conversations-enabled .expansion-container .inline-reply-tweetbox {
+    background-color: #E5F2F7;
+}
+.u-borderUserColorLighter {
+    border-color: #BFE0EC !important;
+}
+.u-bgUserColorLightest {
+    background-color: #E5F2F7 !important;
+}
+.DashboardProfileCard-tweetbox {
+    border: 1px solid;
+    margin-bottom: -1px;
+    margin-left: -1px;
+    padding: 12px;
+    /*width: 264px;*/
+}
+.tweet-user {
+    background-color: #F5F5F5;
+    border-radius: 0 0 5px 5px;
+    padding: 10px 12px;
+}
