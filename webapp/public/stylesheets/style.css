@@ -4,11 +4,10 @@ body {
   background-image: url(/images/bg.jpg);
   background-position: left 40px;
   background-repeat: no-repeat;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  color: #292F33;
-  font-size: 14px;
-  line-height: 18px;
+  padding-top: 80px;
+  /*color: #292F33;*/
+  /*font-size: 14px;*/
+  /*line-height: 18px;*/
 }
 
 .content-header {
@@ -54,7 +53,7 @@ ol, ul {
     padding-left: 0;
 }
 
-li {
+.stream-container li {
     list-style: none;
     padding: 9px 12px;
 }
