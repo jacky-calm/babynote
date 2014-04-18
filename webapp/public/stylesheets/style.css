@@ -47,7 +47,7 @@ body {
     margin-bottom: 14px;
 }
 
-ol ul {
+ol, ul {
     list-style: decimal outside none;
     margin-left: 0;
     margin-bottom: 0;
@@ -65,12 +65,11 @@ li {
     border-radius: 6px 6px 6px 6px;
 }
 .DashboardProfileCard-userFields {
-    left: 90px;
+    left: 110px;
     position: absolute;
     top: 103px;
     width: 185px;
 }
-
 .DashboardProfileCard-name {
     font-size: 18px;
     font-weight: 700;
@@ -103,6 +102,9 @@ li {
     display: block !important;
 }
 
+.module {
+    line-height: 16px;
+}
 .DashboardProfileCard-avatarLink {
     background-color: #FFFFFF;
     border-radius: 6px 6px 6px 6px;
@@ -160,6 +162,14 @@ li {
     overflow: hidden;
     transition: all 0.15s ease-in-out 0s;
 }
+.DashboardProfileCard-statLabel {
+    color: #8C9CA9;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-transform: uppercase;
+    transition: color 0.15s ease-in-out 0s;
+}
 .u-size1of3, .u-size2of6, .u-size4of12 {
     width: 33.333% !important;
 }
@@ -170,4 +180,18 @@ a {
     background: none repeat scroll 0 0 transparent;
 }
 
-
+.u-textUserColor, .u-textUserColorHover:hover, .u-textUserColorHover:focus {
+    color: #0084B4 !important;
+}
+.DashboardProfileCard-statLink {
+    padding: 0 5px;
+}
+.u-textCenter {
+    text-align: center !important;
+}
+.u-linkClean, .u-linkClean:hover, .u-linkClean:focus, .u-linkClean:active {
+    text-decoration: none !important;
+}
+.u-block {
+    display: block !important;
+}
