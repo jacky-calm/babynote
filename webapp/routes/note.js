@@ -1,3 +1,6 @@
+var logger = require("log4js").getLogger();
+var moment = require("moment");
+
 /*
  * GET notelist page.
  */
@@ -5,6 +8,11 @@
 exports.notelist = function(db) {
   return function(req, res) {
     db.collection('notelist').find().toArray(function (err, items) {
+      items.forEach(function(item, index, array){
+        var objectId = item._id
+        logger.info("insert at: "+objectId.getTimestamp().getTime());
+        item.insertAt = moment(objectId.getTimestamp().getTime()).format("HH:mm MM-DD-YYYY");
+      });
       res.json(items);
     })
   }

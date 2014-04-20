@@ -8,8 +8,8 @@ $(document).ready(function() {
   populateTable();
   showBabyInfo();
 
-  $("#noteDate").datepicker();
-  $("#noteDate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
+  //$("#noteDate").datepicker();
+  //$("#noteDate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
   $('#btnAddNote').on('click', addNote);
 
   // Delete Note link click
@@ -32,7 +32,8 @@ function populateTable() {
       listContent += '<div class="context">&nbsp;&nbsp;</div>';
       listContent += '<div class="content">';
       listContent += '<p>';
-      listContent += this.noteContent + '(posted at '+this.noteDate + ') ';
+      listContent += this.noteContent + ' (@ ' + this.insertAt + ')';
+      //listContent += this.noteContent + '(posted at ' + $.datepicker.formatDate('HH:MM:ss  mm/dd/yy', new Date(this.insertAt)) + ')';
       listContent += '</p>';
       listContent += '</div>';
       listContent += '</li>';
@@ -67,7 +68,7 @@ function addNote(event) {
     // If it is, compile all user info into one object
     var newNote = {
       'noteContent': $('#noteContent').val(),
-      'noteDate': $('#noteDate').val(),
+      'noteDate': new Date(),
       'noteTag': $('#noteTag').val(),
       'notePhoto': $('#notePhoto').val(),
     }

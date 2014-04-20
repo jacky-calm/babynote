@@ -8,6 +8,8 @@ var routes = require('./routes');
 var note = require('./routes/note')
 var http = require('http');
 var path = require('path');
+var log4js = require('log4js');
+
 // Database
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/babynote", {native_parser:true});
@@ -39,3 +41,4 @@ app.delete('/deletenote/:id', note.deletenote(db));
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
