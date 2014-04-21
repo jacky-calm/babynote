@@ -29,7 +29,6 @@ function populateTable() {
     // For each item in our JSON, add a table row and cells to the content string
     $.each(data, function(){
       listContent += '<li class="stream-item">' ;
-      listContent += '<div class="context">&nbsp;&nbsp;</div>';
       listContent += '<div class="content">';
       listContent += '<p>';
       listContent += this.noteContent + ' (@ ' + this.insertAt + ')';
@@ -40,7 +39,7 @@ function populateTable() {
     });
 
     // Inject the whole content string into our existing HTML table
-    $('#notelist').html(listContent);
+    //$('#notelist').html(listContent);
   });
 };
 
@@ -83,13 +82,10 @@ function addNote(event) {
 
       // Check for successful (blank) response
       if (response.msg === '') {
-
         // Clear the form inputs
-        //$('#addUser fieldset input').val('');
-
+        $('#noteContent').val('');
         // Update the table
         populateTable();
-
       }
       else {
 

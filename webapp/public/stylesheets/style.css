@@ -220,3 +220,58 @@ a {
     border-radius: 0 0 5px 5px;
     padding: 10px 12px;
 }
+
+.stream-item-header .avatar, .permalink-header .avatar {
+    float: left;
+    margin-left: 0px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.avatar {
+    -moz-force-broken-image-icon: 1;
+    border-radius: 5px 5px 5px 5px;
+    height: 48px;
+    width: 48px;
+}
+img {
+    border: 0 none;
+}
+.tweet .js-tweet-text {
+    white-space: pre-wrap;
+}
+.tweet p {
+    word-wrap: break-word;
+}
+.stream-item .bottom-tweet-actions, .stream .stream-item-footer {
+    display: table;
+    width: 100%;
+}
+.tweet .stream-item-footer {
+    font-size: 12px;
+    padding-top: 3px;
+}
+.tweet {
+    cursor: pointer;
+}
+.with-icn {
+    color: #999999;
+    font-size: 12px;
+}
+.stream-item .bottom-tweet-actions .details, .stream .stream-item-footer .details {
+    display: table-cell;
+    margin: 0;
+}
+.expand-action-wrapper {
+    color: #999999;
+}
+.collapse-stream-item{
+    display: none;
+}
+.stream-item .bottom-tweet-actions .tweet-actions, .stream .stream-item-footer .tweet-actions {
+    display: table-cell;
+    text-align: right;
+}
+.tweet-actions li {
+    display: inline;
+}

@@ -7,7 +7,7 @@ var moment = require("moment");
 
 exports.notelist = function(db) {
   return function(req, res) {
-    db.collection('notelist').find().toArray(function (err, items) {
+    db.collection('notelist').find().sort({_id: -1}).toArray(function (err, items) {
       items.forEach(function(item, index, array){
         var objectId = item._id
         logger.info("insert at: "+objectId.getTimestamp().getTime());

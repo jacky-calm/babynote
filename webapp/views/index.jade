@@ -67,17 +67,54 @@ block content
         div.well
           div.row
             div.col-lg-6
-              fieldset
-                textarea#noteContent.form-control(rows="3", placeholder="Add new Notes...")
-                button#btnAddNote Add
+              form.form-horizontal(role="form")
+                div.form-group
+                  div.col-lg-12
+                    textarea#noteContent.form-control(rows="3", placeholder="Add new Notes...")
+                div.form-group
+                  div.col-lg-12
+                    button.btn.btn-default.pull-right#btnAddNote Add
             div.col-lg-4
               span Try to share...
         // NOTE LIST
-        div.content-header
+        div.content-header.tweet
           div.header-inner
             h4 Note List
         div.stream-container
           ol#notelist
+            li.stream-item
+              div.content
+                div.stream-item-header
+                  a.account-group.js-account-group.js-action-profile.js-user-profile-link.js-nav(href="#")
+                    img.avatar.js-action-profile-avatar(src="https://pbs.twimg.com/profile_images/456669699233697793/eo1ojc48_bigger.jpeg")
+                    strong.fullname.js-action-profile-name.show-popup-with-id Jacky
+                    span &nbsp;
+                  small.time
+                    a.tweet-timestamp.js-permalink.js-nav.js-tooltip
+                      span._timestamp.js-short-timestamp 03:21 PM, Apr 21
+
+                p.js-tweet-text.tweet-text It was November. Although it was not yet late, the sky was dark when I turned into Laundress Passage. Father had finished for the day, switched off the shop lights and closed the shutters; but so I would not come home to darkness he had left on the light over the stairs to the flat. Through the glass in the door it cast a foolscap
+                div.stream-item-footer
+                  a.details.with-icn.js-details
+                    b
+                      span.expand-stream-item.js-view-details Expend
+                      span.collapse-stream-item.js-view-details Collapse
+                  ul.tweet-actions.js-actions
+                    li.action-reply-container
+                      a.with-icn.js-action-reply.js-tooltip
+                        span.Icon.Icon--reply &nbsp;
+                        b Reply
+                    li.action-del-container
+                      a.with-icn.js-action-del.js-tooltip
+                        span.Icon.Icon--del &nbsp;
+                        b Delete
+                    li.action-fav-container
+                      a.with-icn.js-action-fav.js-tooltip
+                        span.Icon.Icon--favorite &nbsp;
+                        b Favorite
+                      a.with-icn.unfavorite.js-tooltip
+                        span.Icon.Icon--unfavorite &nbsp;
+                        b Unfavorite
         // /NOTE LIST
         div.stream-footer
 
