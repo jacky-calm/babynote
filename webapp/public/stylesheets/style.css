@@ -275,3 +275,6 @@ img {
 .tweet-actions li {
     display: inline;
 }
+.tweet .unfavorite, .tweet.favorited .favorite, .tweet.retweeted .retweet, .tweet .undo-retweet, .tweet.my-tweet .action-rt-container, .tweet .cannot-retweet, .tweet.user-pinned .user-pin-tweet, .tweet .user-unpin-tweet {
+    display: none;
+}
