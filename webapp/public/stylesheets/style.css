@@ -252,7 +252,7 @@ img {
     padding-top: 3px;
 }
 .tweet {
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 .with-icn {
     color: #999999;

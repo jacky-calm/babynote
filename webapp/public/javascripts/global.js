@@ -13,7 +13,7 @@ $(document).ready(function() {
   $('#btnAddNote').on('click', addNote);
 
   // Delete Note link click
-  $('#notelist').on('click', 'a.linkdeletenote', deleteNote);
+  $('#notelist').on('click', 'a.js-action-del', deleteNote);
 
 });
 
@@ -21,25 +21,18 @@ $(document).ready(function() {
 
 // Fill table with data
 function populateTable() {
-  // Empty content string
-  var listContent = '';
-
   // jQuery AJAX call for JSON
   $.getJSON( '/notelist', function( data ) {
     // For each item in our JSON, add a table row and cells to the content string
     $.each(data, function(){
-      listContent += '<li class="stream-item">' ;
-      listContent += '<div class="content">';
-      listContent += '<p>';
-      listContent += this.noteContent + ' (@ ' + this.insertAt + ')';
-      //listContent += this.noteContent + '(posted at ' + $.datepicker.formatDate('HH:MM:ss  mm/dd/yy', new Date(this.insertAt)) + ')';
-      listContent += '</p>';
-      listContent += '</div>';
-      listContent += '</li>';
+      var li = $("#note-item-templete").clone().attr("id","li-"+this._id);
+      li.appendTo("#notelist")
+      li.find("p").html(this.noteContent)
+      li.find(".time span").html(this.insertAt);
+      li.find("a.js-action-del").attr("rel", this._id).attr("href", "#");
     });
 
-    // Inject the whole content string into our existing HTML table
-    //$('#notelist').html(listContent);
+    $("#note-item-templete").hide();
   });
 };
 
@@ -109,14 +102,14 @@ function deleteNote(event) {
 
   // Pop up a confirmation dialog
   var confirmation = confirm('Are you sure you want to delete this note?');
-
+  var noteId = $(this).attr('rel');
   // Check and make sure the user confirmed
   if (confirmation === true) {
 
     // If they did, do our delete
     $.ajax({
       type: 'DELETE',
-      url: '/deletenote/' + $(this).attr('rel')
+      url: '/deletenote/' + noteId
     }).done(function( response ) {
 
       // Check for a successful (blank) response
@@ -127,7 +120,8 @@ function deleteNote(event) {
       }
 
       // Update the table
-      populateTable();
+      //populateTable();
+      $("#li-"+noteId).remove();
 
     });
 
