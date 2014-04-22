@@ -4,6 +4,7 @@ var userListData = [];
 // DOM Ready =============================================================
 $(document).ready(function() {
 
+  $("#note-item-templete").hide();
   // Populate the user table on initial page load
   populateTable();
   showBabyInfo();
@@ -18,21 +19,23 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
-
-// Fill table with data
-function populateTable() {
-  // jQuery AJAX call for JSON
-  $.getJSON( '/notelist', function( data ) {
-    // For each item in our JSON, add a table row and cells to the content string
-    $.each(data, function(){
-      var li = $("#note-item-templete").clone().attr("id","li-"+this._id);
-      li.appendTo("#notelist")
+//
+// append/prepend notes to the notelist
+function appendNotes(notes, append=true){
+    $.each(notes, function(){
+      var li = $("#note-item-templete").clone().attr("id","li-"+this._id).show();
+      append ? li.appendTo("#notelist") : li.prependTo("#notelist");
       li.find("p").html(this.noteContent)
       li.find(".time span").html(this.insertAt);
       li.find("a.js-action-del").attr("rel", this._id).attr("href", "#");
     });
+}
 
-    $("#note-item-templete").hide();
+// Fill table with data
+function populateTable() {
+  // jQuery AJAX call for JSON
+  $.getJSON( '/notelist', function( notes ) {
+    appendNotes(notes);
   });
 };
 
@@ -60,7 +63,6 @@ function addNote(event) {
     // If it is, compile all user info into one object
     var newNote = {
       'noteContent': $('#noteContent').val(),
-      'noteDate': new Date(),
       'noteTag': $('#noteTag').val(),
       'notePhoto': $('#notePhoto').val(),
     }
@@ -72,19 +74,17 @@ function addNote(event) {
       url: '/addnote',
       dataType: 'JSON'
     }).done(function( response ) {
-
+      //alert(JSON.stringify(response));
       // Check for successful (blank) response
-      if (response.msg === '') {
-        // Clear the form inputs
-        $('#noteContent').val('');
-        // Update the table
-        populateTable();
-      }
-      else {
-
+      if (response.msg) {
         // If something goes wrong, alert the error message that our service returned
         alert('Error: ' + response.msg);
 
+      } else {
+        // Clear the form inputs
+        $('#noteContent').val('');
+        // Update the table
+        appendNotes(response, false);
       }
     });
   }
@@ -101,7 +101,7 @@ function deleteNote(event) {
   event.preventDefault();
 
   // Pop up a confirmation dialog
-  var confirmation = confirm('Are you sure you want to delete this note?');
+  var confirmation = true;//confirm('Are you sure you want to delete this note?');
   var noteId = $(this).attr('rel');
   // Check and make sure the user confirmed
   if (confirmation === true) {
@@ -120,7 +120,6 @@ function deleteNote(event) {
       }
 
       // Update the table
-      //populateTable();
       $("#li-"+noteId).remove();
 
     });

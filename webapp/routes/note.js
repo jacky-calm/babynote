@@ -9,9 +9,7 @@ exports.notelist = function(db) {
   return function(req, res) {
     db.collection('notelist').find().sort({_id: -1}).toArray(function (err, items) {
       items.forEach(function(item, index, array){
-        var objectId = item._id
-        logger.info("insert at: "+objectId.getTimestamp().getTime());
-        item.insertAt = moment(objectId.getTimestamp().getTime()).format("HH:mm MM-DD-YYYY");
+        item.insertAt = moment(item.insertAt).format("HH:mm MM-DD-YYYY");
       });
       res.json(items);
     })
@@ -24,10 +22,11 @@ exports.notelist = function(db) {
 
 exports.addnote = function(db) {
   return function(req, res) {
+    req.body.insertAt =  new Date().getTime();
     db.collection('notelist').insert(req.body, function(err, result){
-      res.send(
-        (err === null) ? { msg: '' } : { msg: err }
-      );
+      result[0].insertAt = moment(result.insertAt).format("HH:mm MM-DD-YYYY");
+      //logger.info(result);
+      err === null ? res.json(result) : res.send({msg: err});
     });
   }
 };
