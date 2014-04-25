@@ -10,6 +10,7 @@ var login = require('./routes/login')
 var http = require('http');
 var path = require('path');
 var log4js = require('log4js');
+var flash = require('connect-flash')
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -32,8 +33,10 @@ passport.deserializeUser(function(id, done) {
       done(err, user);
     });
 });
-
-function findByUsername(id, fn) {
+function findById(id, fn) {
+  fn(null, { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' });
+}
+function findByUsername(username, fn) {
   fn(null, { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' });
 }
 
@@ -68,6 +71,9 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.cookieParser() );
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
@@ -82,8 +88,9 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 }
-app.get('/', routes.index);
+app.get('/', ensureAuthenticated, routes.index);
 app.get('/login', login.form);
+app.post('/login', login.submit(db));
 app.get('/notelist', note.notelist(db));
 app.post('/addnote', note.addnote(db));
 app.delete('/deletenote/:id', note.deletenote(db));
