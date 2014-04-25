@@ -7,10 +7,10 @@ var express = require('express');
 var routes = require('./routes');
 var note = require('./routes/note')
 var login = require('./routes/login')
+var user = require('./routes/user')
 var http = require('http');
 var path = require('path');
 var log4js = require('log4js');
-var flash = require('connect-flash')
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -29,16 +29,11 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  findById(id, function (err, user) {
+  user.findById(id, function (err, user) {
       done(err, user);
     });
 });
-function findById(id, fn) {
-  fn(null, { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' });
-}
-function findByUsername(username, fn) {
-  fn(null, { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' });
-}
+
 
 // Use the LocalStrategy within Passport.
 // // Strategies in passport require a `verify` function, which accept
@@ -49,7 +44,8 @@ function findByUsername(username, fn) {
 passport.use(new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
-      findByUsername(username, function(err, user) {
+      user.findByUsername(username, function(err, user) {
+        console.log(JSON.stringify(user));
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
         if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
@@ -73,7 +69,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser() );
 app.use(express.session({ secret: 'keyboard cat' }));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {

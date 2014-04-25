@@ -1,5 +1,6 @@
 var logger = require("log4js").getLogger();
 var moment = require("moment");
+var collection_name = "notes";
 
 var formatDate = function(timeInMS) {
   return moment(timeInMS).format("HH:mm MM-DD-YYYY");
@@ -10,7 +11,7 @@ var formatDate = function(timeInMS) {
 
 exports.notelist = function(db) {
   return function(req, res) {
-    db.collection('notelist').find().sort({_id: -1}).toArray(function (err, items) {
+    db.collection(collection_name).find().sort({_id: -1}).toArray(function (err, items) {
       items.forEach(function(item, index, array){
         item.insertAt = formatDate(item._id.getTimestamp().getTime());
       });
@@ -25,7 +26,7 @@ exports.notelist = function(db) {
 
 exports.addnote = function(db) {
   return function(req, res) {
-    db.collection('notelist').insert(req.body, function(err, result){
+    db.collection(collection_name).insert(req.body, function(err, result){
       result[0].insertAt = formatDate(result[0]._id.getTimestamp().getTime());
       //logger.info(result);
       err === null ? res.json(result) : res.send({msg: err});
@@ -40,7 +41,7 @@ exports.addnote = function(db) {
 exports.deletenote = function(db) {
   return function(req, res) {
     var noteToDelete = req.params.id;
-    db.collection('notelist').removeById(noteToDelete, function(err, result) {
+    db.collection(collection_name).removeById(noteToDelete, function(err, result) {
       res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
     });
   }
