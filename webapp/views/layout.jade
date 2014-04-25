@@ -23,10 +23,16 @@ html
             ul.nav.navbar-nav.navbar-right
               li
                 a(href="#") Setting
-              li
-                a(href="/login") Login
-              li
-                a(href="#") Logout
+              if user  
+                li
+                  a(href="/logout") 
+                    | Logout 
+                    = user.username
+              else
+                li
+                  a(href="/login") Login
+              
+
             form.navbar-form.navbar-right(role="search")
               div.form-group
                 input.form-control(placeholder="Search")

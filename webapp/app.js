@@ -76,6 +76,10 @@ app.use(express.session({ secret: 'keyboard cat' }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -90,7 +94,8 @@ function ensureAuthenticated(req, res, next) {
 }
 app.get('/', ensureAuthenticated, routes.index);
 app.get('/login', login.form);
-app.post('/login', login.submit(db));
+app.get('/logout', login.logout);
+app.post('/login', login.login(db));
 app.get('/notelist', note.notelist(db));
 app.post('/addnote', note.addnote(db));
 app.delete('/deletenote/:id', note.deletenote(db));

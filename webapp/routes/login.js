@@ -4,7 +4,7 @@ exports.form = function(req, res){
   res.render('login', { title: 'Login' });
 };
 
-exports.submit = function(db) {
+exports.login = function(db) {
   return function(req, res, next) {
   	  console.log("login submit");
 	  passport.authenticate('local', function(err, user, info) {
@@ -22,4 +22,9 @@ exports.submit = function(db) {
   };
 
 
+};
+
+exports.logout = function(req, res) {
+  req.logout();
+  res.redirect('/');
 };
