@@ -6,6 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var note = require('./routes/note')
+var login = require('./routes/login')
 var http = require('http');
 var path = require('path');
 var log4js = require('log4js');
@@ -32,6 +33,10 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+function findByUsername(id, fn) {
+  fn(null, { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' });
+}
+
 // Use the LocalStrategy within Passport.
 // // Strategies in passport require a `verify` function, which accept
 // // credentials (in this case, a username and password), and invoke a callback
@@ -42,14 +47,14 @@ passport.use(new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
       findByUsername(username, function(err, user) {
-                    if (err) { return done(err); }
-                    if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-                    if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
-                    return done(null, user);
-                  })
-                });
-            }
-      ));
+        if (err) { return done(err); }
+        if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+        if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+        return done(null, user);
+      })
+    });
+  }
+));
 
 
 var app = express();
@@ -63,6 +68,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -71,7 +78,12 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
 app.get('/', routes.index);
+app.get('/login', login.form);
 app.get('/notelist', note.notelist(db));
 app.post('/addnote', note.addnote(db));
 app.delete('/deletenote/:id', note.deletenote(db));
