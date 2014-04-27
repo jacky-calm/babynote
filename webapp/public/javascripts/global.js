@@ -131,3 +131,7 @@ function deleteNote(event) {
   }
 
 };
+
+var formatDate = function(timeInMS) {
+  return moment(timeInMS).format("HH:mm MM-DD-YYYY");
+};

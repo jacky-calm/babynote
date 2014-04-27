@@ -1,10 +1,6 @@
 var logger = require("log4js").getLogger();
-var moment = require("moment");
+var utils = require("./utils");
 var collection_name = "notes";
-
-var formatDate = function(timeInMS) {
-  return moment(timeInMS).format("HH:mm MM-DD-YYYY");
-};
 /*
  * GET notelist page.
  */
@@ -13,7 +9,7 @@ exports.notelist = function(db) {
   return function(req, res) {
     db.collection(collection_name).find().sort({_id: -1}).toArray(function (err, items) {
       items.forEach(function(item, index, array){
-        item.insertAt = formatDate(item._id.getTimestamp().getTime());
+        item.insertAt = utils.formatDatetime(item._id.getTimestamp().getTime());
       });
       res.json(items);
     })
@@ -27,7 +23,7 @@ exports.notelist = function(db) {
 exports.addnote = function(db) {
   return function(req, res) {
     db.collection(collection_name).insert(req.body, function(err, result){
-      result[0].insertAt = formatDate(result[0]._id.getTimestamp().getTime());
+      result[0].insertAt = utils.formatDatetime(result[0]._id.getTimestamp().getTime());
       //logger.info(result);
       err === null ? res.json(result) : res.send({msg: err});
     });

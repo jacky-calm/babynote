@@ -1,5 +1,4 @@
 extends layout
-
 block content
   div.container
     div.row.tweet
@@ -7,13 +6,16 @@ block content
         div.DashboardProfileCard.module
           a.DashboardProfileCard-bg.u-bgUserColor.u-block
           div.DashboardProfileCard-content
+          - var baby = user.babies[0]
             a.DashboardProfileCard-avatarLink.u-inlineBlock
               img(src="https://pbs.twimg.com/profile_images/456669699233697793/eo1ojc48_bigger.jpeg")
             div.DashboardProfileCard-userFields
               div.DashboardProfileCard-name.u-textTruncate
                 a#userInfoName.u-textInheritColor
+                  = baby.name + ", " + baby.childhood_name
               span.DashboardProfileCard-screenname.u-inlineBlock.u-dir
-                a.DashboardProfileCard-screennameLink.u-linkComplex.u-linkClean  20 Months, Girl
+                a.DashboardProfileCard-screennameLink.u-linkComplex.u-linkClean
+                  = baby.birthdayFormat + ", " + baby.gender
             div.DashboardProfileCard-stats
               ul.DashboardProfileCard-statList.Grid
                 li.DashboardProfileCard-stat.Grid-cell.u-size1of3

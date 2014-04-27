@@ -8,6 +8,7 @@ var routes = require('./routes');
 var note = require('./routes/note')
 var login = require('./routes/login')
 var user = require('./routes/user')
+var utils = require('./routes/utils')
 var http = require('http');
 var path = require('path');
 var log4js = require('log4js');
@@ -83,6 +84,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
   res.locals.user = req.user;
+  console.log("logged in user: "+JSON.stringify(user));
+  if (req.user && req.user.babies) {
+    res.locals.user.babies[0].birthdayFormat = utils.formatDate(new Date(req.user.babies[0].birthday));
+  }
   next();
 });
 // Remember Me middleware
