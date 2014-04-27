@@ -1,5 +1,3 @@
-// Userlist data array for filling in info box
-var userListData = [];
 
 // DOM Ready =============================================================
 $(document).ready(function() {
@@ -42,7 +40,7 @@ function populateTable() {
 // Show User Info
 function showBabyInfo() {
   //Populate Info Box
-  $('#userInfoName').text("Lele");
+  //$('#userInfoName').text(user.babies[0].name);
   $('#userInfoAge').text("07/29/2012");
   $('#userInfoGender').text("Female");
 };

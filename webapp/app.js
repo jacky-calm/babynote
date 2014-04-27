@@ -13,10 +13,12 @@ var path = require('path');
 var log4js = require('log4js');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var MongoStore  = require('connect-mongostore')(express);
 
 // Database
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/babynote", {native_parser:true});
+
 
 // Passport session setup.
 // // To support persistent login sessions, Passport needs to be able to
@@ -68,11 +70,30 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser() );
-app.use(express.session({ secret: 'keyboard cat' }));
+app.use(express.session({
+    secret:'secret-lele',
+    maxAge: new Date(Date.now() + 3600000),
+    store: new MongoStore(
+        {db: "sessions"},
+        function(err){
+            console.log(err || 'connect-mongodb setup ok');
+        })
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
   res.locals.user = req.user;
+  next();
+});
+// Remember Me middleware
+app.use( function (req, res, next) {
+  if ( req.method == 'POST' && req.url == '/login' ) {
+    if ( req.body.rememberme ) {
+      req.session.cookie.maxAge = 2592000000; // 30*24*60*60*1000 Rememeber 'me' for 30 days
+    } else {
+      req.session.cookie.expires = false;
+    }
+  }
   next();
 });
 app.use(app.router);
