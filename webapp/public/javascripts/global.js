@@ -1,11 +1,9 @@
-
+var noteCount = 0;
 // DOM Ready =============================================================
 $(document).ready(function() {
-
   $("#note-item-templete").hide();
   // Populate the user table on initial page load
   populateTable();
-  showBabyInfo();
 
   //$("#noteDate").datepicker();
   //$("#noteDate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
@@ -26,8 +24,12 @@ function appendNotes(notes, append=true){
       li.find("p").html(this.noteContent)
       li.find(".time span").html(this.insertAt);
       li.find("a.js-action-del").attr("rel", this._id).attr("href", "#");
+
+      noteCount += 1;
+      $("span#noteCount").html(noteCount);
     });
 }
+
 
 // Fill table with data
 function populateTable() {
@@ -35,14 +37,6 @@ function populateTable() {
   $.getJSON( '/notelist', function( notes ) {
     appendNotes(notes);
   });
-};
-
-// Show User Info
-function showBabyInfo() {
-  //Populate Info Box
-  //$('#userInfoName').text(user.babies[0].name);
-  $('#userInfoAge').text("07/29/2012");
-  $('#userInfoGender').text("Female");
 };
 
 // Add User
@@ -119,6 +113,8 @@ function deleteNote(event) {
 
       // Update the table
       $("#li-"+noteId).remove();
+      noteCount -= 1;
+      $("span#noteCount").html(noteCount);
 
     });
 
