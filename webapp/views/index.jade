@@ -27,30 +27,19 @@ block content
                 div.tweet-box.rich-editor.notie
                   Add Notes...
 
-
-
-        // ADD NOTE
-        //-h4 Add Note
-        //-fieldset
-          //-input#noteContent(placeholder='Content')
-          //-br
-          //-input#noteDate(type='text', placeholder='Date')
-          //-br
-          //-input#noteTag(type='text', placeholder='Tag')
-          //-br
-          //-input#notePhoto(type='text', placeholder='Upload')
-          //-br
-          //-button#btnAddNote Add Note
-        // /ADD NOTE
-
       div.col-lg-7
         div.well
           div.row
             div.col-lg-6
-              form.form-horizontal(role="form")
+              form.form-horizontal(name="form-note", role="form", enctype="multipart/form-data")
                 div.form-group
                   div.col-lg-12
-                    textarea#noteContent.form-control(rows="3", placeholder="Add new Notes...")
+                    textarea#noteContent.form-control(name="noteContent", rows="3", placeholder="Add new Notes...")
+                div.form-group
+                  div.col-lg-12
+                    input#noteImage(type="file", name="noteImage")
+                    //-button.btn.btn-default
+                      //-i.fa.fa-camera-retro.fa-lg
                 div.form-group
                   div.col-lg-12
                     button.btn.btn-default.pull-right#btnAddNote Add

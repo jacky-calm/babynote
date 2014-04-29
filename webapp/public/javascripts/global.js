@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   //$("#noteDate").datepicker();
   //$("#noteDate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
-  $('#btnAddNote').on('click', addNote);
+  $('#btnAddNote').on('click', submitNote);
 
   // Delete Note link click
   $('#notelist').on('click', 'a.js-action-del', deleteNote);
@@ -39,55 +39,32 @@ function populateTable() {
   });
 };
 
-// Add User
-function addNote(event) {
+function submitNote(event){
   event.preventDefault();
-
-  // Super basic validation - increase errorCount variable if any fields are blank
-  var errorCount = 0;
-  $('#addNote input').each(function(index, val) {
-    if($(this).val() === '') { errorCount++; }
+  var formData = new FormData(document.forms.namedItem("form-note"));
+  $.ajax({
+    type: 'POST',
+    data: formData,
+    url: '/addnote',
+    processData: false,  // tell jQuery not to process the data
+    contentType: false   // tell jQuery not to set contentType
+  }).done(function( response ) {
+    //alert(JSON.stringify(response));
+    // Check for successful (blank) response
+    if (response.msg) {
+      // If something goes wrong, alert the error message that our service returned
+      alert('Error: ' + response.msg);
+    } else {
+      // Clear the form inputs
+      $('#noteContent').val('');
+      // Update the table
+      appendNotes(response, false);
+    }
   });
 
-  // Check and make sure errorCount's still at zero
-  if(errorCount === 0) {
+}
 
-    // If it is, compile all user info into one object
-    var newNote = {
-      'noteContent': $('#noteContent').val(),
-      'noteTag': $('#noteTag').val(),
-      'notePhoto': $('#notePhoto').val(),
-    }
-
-    // Use AJAX to post the object to our adduser service
-    $.ajax({
-      type: 'POST',
-      data: newNote,
-      url: '/addnote',
-      dataType: 'JSON'
-    }).done(function( response ) {
-      //alert(JSON.stringify(response));
-      // Check for successful (blank) response
-      if (response.msg) {
-        // If something goes wrong, alert the error message that our service returned
-        alert('Error: ' + response.msg);
-
-      } else {
-        // Clear the form inputs
-        $('#noteContent').val('');
-        // Update the table
-        appendNotes(response, false);
-      }
-    });
-  }
-  else {
-    // If errorCount is more than 0, error out
-    alert('Please fill in all fields');
-    return false;
-  }
-};
-
-// Delete User
+// Delete Note
 function deleteNote(event) {
 
   event.preventDefault();

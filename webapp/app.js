@@ -5,10 +5,10 @@
 
 var express = require('express');
 var routes = require('./routes');
-var note = require('./routes/note')
-var login = require('./routes/login')
-var user = require('./routes/user')
-var utils = require('./routes/utils')
+var note = require('./routes/note');
+var login = require('./routes/login');
+var user = require('./routes/user');
+var utils = require('./routes/utils');
 var http = require('http');
 var path = require('path');
 var log4js = require('log4js');

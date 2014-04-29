@@ -16,6 +16,7 @@
     "passport-local": "~1.0.0",
     "connect-flash": "~0.1.0",
     "connect-mongostore": "0.0.13",
-    "easyimage": "^0.1.6"
+    "easyimage": "^0.1.6",
+    "formidable": "~1.0.14"
   }
 }
