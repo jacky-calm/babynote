@@ -21,7 +21,8 @@ function appendNotes(notes, append=true){
     $.each(notes, function(){
       var li = $("#note-item-templete").clone().attr("id","li-"+this._id).show();
       append ? li.appendTo("#notelist") : li.prependTo("#notelist");
-      li.find("p").html(this.noteContent)
+      li.find("p").html(this.noteContent);
+      li.find(".note-img").attr("src", "/note/"+this._id+"/img").attr("height", "300").attr("width","400");
       li.find(".time span").html(this.insertAt);
       li.find("a.js-action-del").attr("rel", this._id).attr("href", "#");
 

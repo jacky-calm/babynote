@@ -117,9 +117,10 @@ app.get('/', ensureAuthenticated, routes.index);
 app.get('/login', login.form);
 app.get('/logout', login.logout);
 app.post('/login', login.login(db));
-app.get('/notelist', note.notelist(db));
-app.post('/addnote', note.addnote(db));
-app.delete('/deletenote/:id', note.deletenote(db));
+app.get('/notelist', note.notelist());
+app.get('/note/:id/img', note.img());
+app.post('/addnote', note.addnote());
+app.delete('/deletenote/:id', note.deletenote());
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
