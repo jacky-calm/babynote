@@ -6,8 +6,10 @@ var util = require('util');
 var fs = require('fs');
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/babynote", {native_parser:true});
-var BSON = mongo.BSONPure;
 db.bind("notes");
+var BSON = mongo.BSONPure;
+var Long = mongo.Long;
+var easyimg = require('easyimage');
 /*
  *
  * GET notelist page.
@@ -24,6 +26,18 @@ exports.notelist = function() {
   }
 };
 
+var parseLong = function(s) {
+  if(s){
+    return Long.fromString(s);
+  }
+  return undefined;
+};
+var parseDouble = function(s) {
+  if(s){
+    return parseFloat(s);
+  }
+  return undefined;
+};
 /*
  * POST to addnote.
  */
@@ -37,16 +51,28 @@ exports.addnote = function() {
         return;
       }
       console.log(util.inspect({fields: fields, files: files}));
+      var note = {};
+      note.noteContent = fields.noteContent;
+      note.growth = {
+        height: parseLong(fields.height),
+        weight: parseDouble(fields.weight),
+        headSize: parseLong(fields.headSize),
+        chestSize: parseLong(fields.chestSize),
+        bregmaLength: parseLong(fields.bregmaLength),
+        bregmaWidth: parseLong(fields.bregmaWidth),
+        growthDate: utils.parseDate(fields.growthDate)
+      };
+
       var noteImage = files.noteImage;
       var imageFile = fs.readFileSync(noteImage.path);
-      fields.img = {
+      note.img = {
         file: new BSON.Binary(imageFile),
         name: noteImage.name,
         type: noteImage.type,
         lastModifiedDate: noteImage.lastModifiedDate,
       };
 
-      db.notes.insert(fields, function(err, result){
+      db.notes.insert(note, function(err, result){
         result[0].insertAt = utils.formatDatetime(result[0]._id.getTimestamp().getTime());
         result[0].img = undefined;
         console.log(util.inspect(result));

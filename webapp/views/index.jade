@@ -32,18 +32,42 @@ block content
           div.row
             div.col-lg-6
               form.form-horizontal(name="form-note", role="form", enctype="multipart/form-data")
-                div.form-group
-                  div.col-lg-12
+                div.col-lg-12
+                  div.form-group
                     textarea#noteContent.form-control(name="noteContent", rows="3", placeholder="Add new Notes...")
-                div.form-group
-                  div.col-lg-12
-                    input#noteImage(type="file", name="noteImage")
+                  div.form-group.growth
+                    div.input-group
+                      input.form-control(name="height", placeholder="height")
+                      span.input-group-addon CM
+                  div.form-group.growth
+                    div.input-group
+                      input.form-control(name="weight", placeholder="weight")
+                      span.input-group-addon KG
+                  div.form-group.growth
+                    div.input-group
+                      input.form-control(name="headSize", placeholder="head size")
+                      span.input-group-addon CM
+                  div.form-group.growth
+                    div.input-group
+                      input.form-control(name="chestSize", placeholder="chest size")
+                      span.input-group-addon CM
+                  div.form-group.growth
+                    div.input-group
+                      input.form-control(name="bregmaLength", placeholder="bregma length")
+                      input.form-control(name="bregmaWidth", placeholder="bregma width")
+                      span.input-group-addon CM
+                  div.form-group.growth
+                    div.input-group
+                      input#growth-date.form-control(name="growthDate", placeholder="record date")
+
+                  div.form-group
+                    input#noteImage.form-control(type="file", name="noteImage")
                     //-button.btn.btn-default
                       //-i.fa.fa-camera-retro.fa-lg
-                div.form-group
-                  div.col-lg-12
+                  div.form-group
+                    button.btn.btn-default#btnShowGrowth Growth
                     button.btn.btn-default.pull-right#btnAddNote Add
-            div.col-lg-4
+            div.col-lg-6
               span Try to share...
         // NOTE LIST
         div.content-header

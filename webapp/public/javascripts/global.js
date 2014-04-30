@@ -5,9 +5,14 @@ $(document).ready(function() {
   // Populate the user table on initial page load
   populateTable();
 
-  //$("#noteDate").datepicker();
-  //$("#noteDate").val($.datepicker.formatDate('mm/dd/yy', new Date()));
+  $("#growth-date").datepicker({dateFormat: 'mm-dd-yy'});
+  //$("#growth-date").val($.datepicker.formatDate('mm-dd-yy', new Date()));
   $('#btnAddNote').on('click', submitNote);
+  $('.growth').hide();
+  $('#btnShowGrowth').on('click', function(event){
+    event.preventDefault();
+    $('.growth').show();
+  });
 
   // Delete Note link click
   $('#notelist').on('click', 'a.js-action-del', deleteNote);

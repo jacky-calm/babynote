@@ -6,3 +6,9 @@ exports.formatDatetime = function(timeInMS) {
 exports.formatDate= function(timeInMS) {
   return moment(timeInMS).format("MM-DD-YYYY");
 };
+exports.parseDate= function(s) {
+  if(s){
+    return moment(s, "MM-DD-YYYY").valueOf();
+  }
+  return undefined;
+};

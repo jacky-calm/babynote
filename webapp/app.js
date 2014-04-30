@@ -6,6 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var note = require('./routes/note');
+var growth = require('./routes/growth');
 var login = require('./routes/login');
 var user = require('./routes/user');
 var utils = require('./routes/utils');
@@ -121,6 +122,8 @@ app.get('/notelist', note.notelist());
 app.get('/note/:id/img', note.img());
 app.post('/addnote', note.addnote());
 app.delete('/deletenote/:id', note.deletenote());
+
+app.get('/growthes', growth.list());
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
