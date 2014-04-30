@@ -64,17 +64,21 @@ exports.addnote = function() {
       };
 
       var noteImage = files.noteImage;
-      var imageFile = fs.readFileSync(noteImage.path);
-      note.img = {
-        file: new BSON.Binary(imageFile),
-        name: noteImage.name,
-        type: noteImage.type,
-        lastModifiedDate: noteImage.lastModifiedDate,
-      };
+      if (noteImage.size>0){
+        var imageFile = fs.readFileSync(noteImage.path);
+        note.img = {
+          file: new BSON.Binary(imageFile),
+          name: noteImage.name,
+          type: noteImage.type,
+          lastModifiedDate: noteImage.lastModifiedDate,
+        };
+      }
 
       db.notes.insert(note, function(err, result){
         result[0].insertAt = utils.formatDatetime(result[0]._id.getTimestamp().getTime());
-        result[0].img = undefined;
+        if (result[0].img.size>0) {
+          result[0].img = result[0].img.name;
+        }
         console.log(util.inspect(result));
         err === null ? res.json(result) : res.send({msg: err});
       });

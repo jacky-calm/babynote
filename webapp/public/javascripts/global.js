@@ -17,6 +17,47 @@ $(document).ready(function() {
   // Delete Note link click
   $('#notelist').on('click', 'a.js-action-del', deleteNote);
 
+  $('#hight-growth-chart').highcharts({
+    title: {
+      text: 'Hight Growth' 
+    },
+    xAxis: {
+      categories: ['30', '60', '90', '180', '360']
+    },
+    yAxis: {
+      title: {
+        text: '(CM)'
+      }
+    },
+    tooltip: {
+      valueSuffix: 'CM' 
+    },
+    series: [{
+      name: 'Hight',
+      data: [55, 60, 65, 70, 75]
+    }]
+  });
+  $('#weight-growth-chart').highcharts({
+    title: {
+      text: 'Weight Growth'
+    },
+    xAxis: {
+      categories: ['30', '60', '90', '180', '360']
+    },
+    yAxis: {
+      title: {
+        text: '(KG)'
+      }
+    },
+    tooltip: {
+      valueSuffix: 'KG' 
+    },
+    series: [{
+      name: 'Weight',
+      data: [4.1, 5.6, 7, 8, 9]
+    }]
+  });
+
 });
 
 // Functions =============================================================
@@ -27,7 +68,9 @@ function appendNotes(notes, append=true){
       var li = $("#note-item-templete").clone().attr("id","li-"+this._id).show();
       append ? li.appendTo("#notelist") : li.prependTo("#notelist");
       li.find("p").html(this.noteContent);
-      li.find(".note-img").attr("src", "/note/"+this._id+"/img").attr("height", "300").attr("width","400");
+      if(this.img){
+        li.find(".note-img").attr("src", "/note/"+this._id+"/img").attr("height", "300").attr("width","400");
+      }
       li.find(".time span").html(this.insertAt);
       li.find("a.js-action-del").attr("rel", this._id).attr("href", "#");
 
