@@ -20,6 +20,9 @@ exports.notelist = function() {
     db.notes.find().sort({_id: -1}).toArray(function (err, items) {
       items.forEach(function(item, index, array){
         item.insertAt = utils.formatDatetime(item._id.getTimestamp().getTime());
+        if (item.growth) {
+          item.growth.growthDate = utils.formatDate(item.growth.growthDate);
+        }
       });
       res.json(items);
     })
@@ -54,7 +57,7 @@ exports.addnote = function() {
       var note = {};
       note.noteContent = fields.noteContent;
       note.growth = {
-        height: parseLong(fields.height),
+        height: parseDouble(fields.height),
         weight: parseDouble(fields.weight),
         headSize: parseLong(fields.headSize),
         chestSize: parseLong(fields.chestSize),
@@ -76,7 +79,7 @@ exports.addnote = function() {
 
       db.notes.insert(note, function(err, result){
         result[0].insertAt = utils.formatDatetime(result[0]._id.getTimestamp().getTime());
-        if (result[0].img.size>0) {
+        if (result[0].img && result[0].img.size>0) {
           result[0].img = result[0].img.name;
         }
         console.log(util.inspect(result));

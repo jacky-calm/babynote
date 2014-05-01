@@ -19,7 +19,7 @@ $(document).ready(function() {
 
   $('#hight-growth-chart').highcharts({
     title: {
-      text: 'Hight Growth' 
+      text: 'Hight Growth'
     },
     xAxis: {
       categories: ['30', '60', '90', '180', '360']
@@ -30,7 +30,7 @@ $(document).ready(function() {
       }
     },
     tooltip: {
-      valueSuffix: 'CM' 
+      valueSuffix: 'CM'
     },
     series: [{
       name: 'Hight',
@@ -50,7 +50,7 @@ $(document).ready(function() {
       }
     },
     tooltip: {
-      valueSuffix: 'KG' 
+      valueSuffix: 'KG'
     },
     series: [{
       name: 'Weight',
@@ -67,7 +67,16 @@ function appendNotes(notes, append=true){
     $.each(notes, function(){
       var li = $("#note-item-templete").clone().attr("id","li-"+this._id).show();
       append ? li.appendTo("#notelist") : li.prependTo("#notelist");
-      li.find("p").html(this.noteContent);
+      var content = this.noteContent;
+      if (this.growth){
+        if (this.growth.height)
+          content += "</br>" + "Hight: " + this.growth.height;
+        if (this.growth.weight)
+          content += ", " + "Weight: " + this.growth.weight;
+        if (this.growth.growthDate)
+          content += ", " + "Date: " + this.growth.growthDate;
+      }
+      li.find("p").html(content);
       if(this.img){
         li.find(".note-img").attr("src", "/note/"+this._id+"/img").attr("height", "300").attr("width","400");
       }
