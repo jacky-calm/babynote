@@ -86,8 +86,8 @@ app.use(passport.session());
 app.use(function (req, res, next) {
   res.locals.user = req.user;
   console.log("logged in user: "+JSON.stringify(user));
-  if (req.user && req.user.babies) {
-    res.locals.user.babies[0].birthdayFormat = utils.formatDate(new Date(req.user.babies[0].birthday));
+  if (req.user && req.user.children) {
+    res.locals.user.children[0].birthdayFormat = utils.formatDate(new Date(req.user.children[0].birthday));
   }
   next();
 });

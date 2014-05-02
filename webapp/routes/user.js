@@ -8,9 +8,19 @@ exports.findById = function (id, fn) {
   db.collection(collection_name).findOne({id: id}, function (err, user){
     console.log(JSON.stringify(user));
     if(user)
-      fn(null, user);
+      findChildren(user, fn);
     else
       fn("user is not found by the id: "+id, null);
+  });
+}
+var findChildren = function(user, fn){
+  console.log("find children of user");
+  db.collection("babies").find({mother_id: user._id}).toArray(function (err, children){
+    console.log(JSON.stringify(children));
+    if(children) {
+      user.children = children;
+    }
+    fn(null, user);
   });
 }
 exports.findByUsername = function (username, fn) {
@@ -18,7 +28,7 @@ exports.findByUsername = function (username, fn) {
   db.collection(collection_name).findOne({username: username}, function (err, user){
     console.log(JSON.stringify(user));
     if(user)
-      fn(null, user);
+      findChildren(user, fn);
     else
       fn("user is not found by the username: "+username, null);
   });
