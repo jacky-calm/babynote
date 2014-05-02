@@ -12,3 +12,8 @@ exports.parseDate= function(s) {
   }
   return undefined;
 };
+exports.asDays = function(toMs, fromMs) {
+  //console.log("toMs:" + toMs);
+  //console.log("fromMs:" + fromMs);
+  return moment.duration(toMs - fromMs).asDays();
+};

@@ -17,6 +17,11 @@ $(document).ready(function() {
   // Delete Note link click
   $('#notelist').on('click', 'a.js-action-del', deleteNote);
 
+  var userId= "535aea86ba44ef2c4ac8638e";
+  $.getJSON( '/user/'+userId+'/heightList', function( list ) {
+    alert(JSON.stringify(list));
+  });
+
   $('#hight-growth-chart').highcharts({
     title: {
       text: 'Hight Growth'
