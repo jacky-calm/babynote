@@ -19,28 +19,36 @@ $(document).ready(function() {
 
   var userId= "535aea86ba44ef2c4ac8638e";
   $.getJSON( '/user/'+userId+'/heightList', function( list ) {
-    alert(JSON.stringify(list));
-  });
+    console.log(JSON.stringify(list));
+    var data = new Array(list.length);
+    for (var i in list) {
+      data[i] = new Array(Math.ceil(list[i].days), list[i].height);
+    }
+    console.log(data);
 
-  $('#hight-growth-chart').highcharts({
-    title: {
-      text: 'Hight Growth'
-    },
-    xAxis: {
-      categories: ['30', '60', '90', '180', '360']
-    },
-    yAxis: {
+    $('#hight-growth-chart').highcharts({
+      chart: {
+        type: 'spline'
+      },
       title: {
-        text: '(CM)'
-      }
-    },
-    tooltip: {
-      valueSuffix: 'CM'
-    },
-    series: [{
-      name: 'Hight',
-      data: [55, 60, 65, 70, 75]
-    }]
+        text: 'Height Growth'
+      },
+      xAxis: {
+        labels: { formatter: function() { return this.value +''; } },
+      },
+      yAxis: {
+        labels: { formatter: function() { return this.value +''; } },
+        title: {
+          enabled: false
+        },
+        lineWidth: 2
+      },
+      tooltip: { headerFormat: '<b>{series.name}</b><br/>', pointFormat: '{point.x} days: {point.y} cm' },
+      series: [{
+        name: 'Height',
+        data: data
+      }]
+    });
   });
   $('#weight-growth-chart').highcharts({
     title: {
