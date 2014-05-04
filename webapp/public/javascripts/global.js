@@ -18,20 +18,32 @@ $(document).ready(function() {
   $('#notelist').on('click', 'a.js-action-del', deleteNote);
 
   var userId= "535aea86ba44ef2c4ac8638e";
-  $.getJSON( '/user/'+userId+'/heightList', function( list ) {
+  buildGrowthHightchart(userId, "height", "cm");
+  buildGrowthHightchart(userId, "weight", "kg");
+});
+
+
+
+function capitaliseFirstLetter(string)
+{
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function buildGrowthHightchart(userId, type, unit) {
+  $.getJSON( '/user/'+userId+'/growth/'+type, function( list ) {
     console.log(JSON.stringify(list));
     var data = new Array(list.length);
     for (var i in list) {
-      data[i] = new Array(Math.ceil(list[i].days), list[i].height);
+      data[i] = new Array(Math.ceil(list[i].days), list[i].value);
     }
     console.log(data);
 
-    $('#hight-growth-chart').highcharts({
+    $('#'+type+'-growth-chart').highcharts({
       chart: {
         type: 'spline'
       },
       title: {
-        text: 'Height Growth'
+        text: capitaliseFirstLetter(type) + ' Growth'
       },
       xAxis: {
         labels: { formatter: function() { return this.value +''; } },
@@ -43,35 +55,15 @@ $(document).ready(function() {
         },
         lineWidth: 2
       },
-      tooltip: { headerFormat: '<b>{series.name}</b><br/>', pointFormat: '{point.x} days: {point.y} cm' },
+      tooltip: { headerFormat: '<b>{series.name}</b><br/>', pointFormat: '{point.x} days: {point.y} '+ unit },
       series: [{
-        name: 'Height',
+        name: capitaliseFirstLetter(type),
         data: data
       }]
     });
-  });
-  $('#weight-growth-chart').highcharts({
-    title: {
-      text: 'Weight Growth'
-    },
-    xAxis: {
-      categories: ['30', '60', '90', '180', '360']
-    },
-    yAxis: {
-      title: {
-        text: '(KG)'
-      }
-    },
-    tooltip: {
-      valueSuffix: 'KG'
-    },
-    series: [{
-      name: 'Weight',
-      data: [4.1, 5.6, 7, 8, 9]
-    }]
-  });
 
-});
+  });
+}
 
 // Functions =============================================================
 //

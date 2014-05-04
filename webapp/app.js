@@ -123,7 +123,7 @@ app.get('/note/:id/img', note.img());
 app.post('/addnote', note.addnote());
 app.delete('/deletenote/:id', note.deletenote());
 
-app.get('/user/:id/heightList', growth.heightList());
+app.get('/user/:id/growth/:name', growth.growthList());
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
