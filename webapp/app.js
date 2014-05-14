@@ -7,6 +7,7 @@ var express = require('express');
 var routes = require('./routes');
 var note = require('./routes/note');
 var growth = require('./routes/growth');
+var plant= require('./routes/plant');
 var login = require('./routes/login');
 var user = require('./routes/user');
 var utils = require('./routes/utils');
@@ -115,6 +116,7 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 app.get('/', ensureAuthenticated, routes.index);
+app.get('/plants', ensureAuthenticated, plant.plants);
 app.get('/login', login.form);
 app.get('/logout', login.logout);
 app.post('/login', login.login(db));
